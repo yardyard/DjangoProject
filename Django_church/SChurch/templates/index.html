@@ -45,10 +45,24 @@
     <nav id="navbar" class="navbar">
       <ul>
         <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+        {% if user.is_authenticated %}
+          <li>
+            <a class="nav-link scrollto " href="#portfolio">내 정보</a>
+            <!--<img src=""> -->
+          </li>
+          <li>
+            <a class="nav-link scrollto " href="{% url 'logout' %}">로그아웃</a></li>
+          </li>
+        {% else %}
+          <li>
+            <li><a class="nav-link scrollto " href="{% url 'signup' %}">회원가입</a></li>
+            <li><a class="nav-link scrollto " href="{% url 'login' %}?next={{ request.path }}">로그인</a></li>
+          </li>
+        {% endif %}
         <li><a class="nav-link scrollto" href="#about">About</a></li>
         <li><a class="nav-link scrollto" href="#resume">Resume</a></li>
         <li><a class="nav-link scrollto" href="#services">Services</a></li>
-        <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li>
+        <li><a class="nav-link scrollto " href="#portfolio">Port</a></li>
         <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
           <ul>
             <li><a href="#">Drop Down 1</a></li>
