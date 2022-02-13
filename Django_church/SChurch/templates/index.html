@@ -47,11 +47,13 @@
         <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
         {% if user.is_authenticated %}
           <li>
-            <a class="nav-link scrollto " href="#portfolio">내 정보</a>
-            <!--<img src=""> -->
+            <a class="nav-link scrollto " href="#about">내 정보</a>
           </li>
           <li>
             <a class="nav-link scrollto " href="{% url 'logout' %}">로그아웃</a></li>
+          </li>
+          <li>
+            <a class="nav-link scrollto " href="{% url 'password_change' %}">암호 수정</a></li>
           </li>
         {% else %}
           <li>
