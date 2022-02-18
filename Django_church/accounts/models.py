@@ -9,14 +9,17 @@ from django.core.validators import RegexValidator
 
 
 class User(AbstractUser):
-    class GenderChoices(models.TextChoices):
-        MALE = "Male", "Male"
-        FEMALE = "Female", "Female"
+    class TeamChoices(models.TextChoices):
+        Male =  "공동체", "남성 공동체"
+        FEMALE =  "여성 공동체", "여성 공동체"
+        Young =  "젊은이 부", "젊은이 부"
+        Teenager = "청소년부", "청소년부"
+        Kids =  "아동부", "아동부"
     
     website_url = models.URLField(blank=True)
     bio = models.TextField(blank=True)
     phone_number = models.CharField(blank=True, max_length=13, validators=[RegexValidator(r"^010-?[1-9]\d{3}-?\d{4}$")])
-    gender = models.CharField(blank=True, max_length=6, choices=GenderChoices.choices, default=GenderChoices.MALE
+    teamchoice = models.CharField(blank=True, max_length=8, choices=TeamChoices.choices
     , help_text="48px * 48px 크기의 png / jpg 파일을 업로드해주세요"
     )
 
@@ -32,3 +35,11 @@ class User(AbstractUser):
         })
         sender_email = settings.WELCOME_EMAIL_SENDER
         send_mail( Subject, content , sender_email , [self.email], fail_silently=False)
+
+"""
+class Thangks(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    caption_1 = models.TextField()
+    caption_2 = models.TextField()
+    caption_3 = models.TextField()
+"""

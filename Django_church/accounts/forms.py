@@ -12,12 +12,12 @@ class SignupForm(UserCreationForm):
         self.fields['website_url'].required = True
         self.fields['bio'].required = True
         self.fields['phone_number'].required = True     
-        self.fields['gender'].required = True
+        self.fields['teamchoice'].required = True
 
     class Meta(UserCreationForm.Meta):
         model = User
         fields = [
-            'username', 'profile', 'website_url', 'bio', 'phone_number', 'gender'
+            'username', 'profile', 'website_url', 'bio', 'phone_number', 'teamchoice'
         ]
     
     # email 중복 방지 함수
@@ -36,7 +36,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
-            'profile', 'bio', 'phone_number', 'gender'   
+            'profile', 'bio', 'phone_number', 'teamchoice'   
         ]
 
 class PasswordChangeForm(AuthPasswordChangeForm):

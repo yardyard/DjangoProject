@@ -46,8 +46,8 @@ def profile_edit(request):
         form = ProfileForm(request.POST, request.FILES, instance=request.user)
         if form.is_valid():
             form.save()
-            messages.success(request, "프로필이 수정되었습니다!")
-            return redirect(profile_edit)
+            messages.success(request, "프로필이 수정되었습니다!") # TODO:일정 시간후에 알람 꺼지게 JS로 구현
+            return redirect('/')
     else:
         form = ProfileForm(instance=request.user)
     
