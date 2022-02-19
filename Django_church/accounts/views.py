@@ -1,3 +1,5 @@
+import datetime
+from time import time, timezone
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView, logout_then_login, PasswordChangeView as AuthPasswordChangeView
@@ -6,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
-from .forms import SignupForm, ProfileForm, PasswordChangeForm
+from .forms import SignupForm, ProfileForm, PasswordChangeForm, ThanksForm
 # Create your views here.
 
 
@@ -71,3 +73,26 @@ class PasswordChangeView(LoginRequiredMixin, AuthPasswordChangeView):
 
 
 password_change = PasswordChangeView.as_view()
+
+
+# 감사 기능
+"""
+수정과 같이 instance=user를 미리 지정해놓아서 저장이 제대로 되지 않았었던 것임
+"""
+@login_required
+def thanks(request):
+    if request.method == 'POST':
+        form = ThanksForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.created = datetime.datetime.now()
+            form = post.save()
+            messages.success(request, "오늘도 감사를 올린 성도님을 축복합니다." ) 
+            return redirect('/')
+    else:
+        form = ThanksForm()
+    
+    return render(request, 'accounts/thanks_form.html', {
+        'form' : form,
+    })
