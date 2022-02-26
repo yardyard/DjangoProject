@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Thangks
+from .models import User
 # Register your models here.
 
 @admin.register(User)
@@ -9,8 +9,3 @@ class UserAdmin(admin.ModelAdmin):
         ]
 
 
-@admin.register(Thangks)
-class ThangksAdmin(admin.ModelAdmin):
-        list_display = [
-        'author', 'created', 'caption_1', 'caption_2', 'caption_3' 
-        ]

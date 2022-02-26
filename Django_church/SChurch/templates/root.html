@@ -57,15 +57,16 @@
               <div class="row">
                 <div class="col-lg-6 mt-3 mb-3">
                   <button class="btn btn-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    감사 기록보기
+                    오늘 나의 감사
                   </button>
                   <div class="collapse mt-3 mb-3" id="collapseExample">
                     <ul>
-                      {% for tk in thk %}
-                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ tk.caption_1 }}</span></li>
-                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ tk.caption_2 }}</span></li>
-                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ tk.caption_3 }}</span></li>
-                      {% endfor %}
+                      
+                      <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_1 }}</span></li>
+                      <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_2 }}</span></li>
+                      <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_3 }}</span></li>
+                      
+                      <strong><a href="{% url 'thk_farm' %}">>>>감사 농장으로 이동하기</a></strong>
                     </ul>                 
                   </div>
                 </div>
@@ -335,11 +336,11 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{% static 'Laura/assets/img/testimonials/testimonials-1.jpg' %}" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
+                <h3>{{ thk.author.username }}</h3>
+                <h4> &amp; Founder</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                  {{ thk.caption_1 }}
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -348,11 +349,11 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{% static 'Laura/assets/img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
+                <h3>{{ thk_user_0.author.username }}</h3>
+                <h4> &amp;Designer</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                    {{thk_user_0.caption_1}}
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -361,11 +362,11 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{% static 'Laura/assets/img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
+                <h3>{{thk_user_1.author.username}}</h3>
+                <h4> &amp;Store Owner</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                    {{thk_user_1.caption_1}}
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -374,11 +375,11 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{% static 'Laura/assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
+                <h3>{{thk_user_2.author.username}}</h3>
+                <h4>  &amp;Freelancer</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                    {{thk_user_2.caption_1}}
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>
@@ -387,11 +388,11 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{% static 'Laura/assets/img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
+                <h3>{{thk_user_3.author.username}}</h3>
+                <h4>  &amp;Entrepreneur</h4>
                 <p>
                   <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                    {{thk_user_3.caption_1}}
                   <i class="bx bxs-quote-alt-right quote-icon-right"></i>
                 </p>
               </div>

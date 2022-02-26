@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import AbstractUser
 from django.template.loader import render_to_string
 from django.core.validators import RegexValidator
-
+from django.shortcuts import resolve_url
 
 
 class User(AbstractUser):
@@ -40,18 +40,10 @@ class User(AbstractUser):
 
 
 
-class Thangks(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True)
-    caption_1 = models.TextField(blank=True, help_text="오늘 첫번째 감사한 내용을 적어주세요!")
-    caption_2 = models.TextField(blank=True, help_text="오늘 두번째 감사한 내용을 적어주세요!")
-    caption_3 = models.TextField(blank=True, help_text="오늘 세번째 감사한 내용을 적어주세요!")
-
-
-
-""" TODO: thanks:detail view 구현하기
-    def get_absolute_url(self): # redirect시 활용
-            return reverse('accounts:thanks_detail', args=[self.id])
-
-
-"""
+    # profile이 있는지 검사하고 알맞은 값을 반환하는 로직
+    @property
+    def profile_url(self):
+        if self.profile:
+            return self.profile.url
+        else:
+            return resolve_url('pydenticon_image', self.username)

@@ -1,7 +1,5 @@
-from dataclasses import field, fields
-from datetime import timezone
-import datetime
-from .models import User, Thangks
+
+from .models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm as AuthPasswordChangeForm
 
@@ -58,24 +56,3 @@ class PasswordChangeForm(AuthPasswordChangeForm):
         
         return new_password1
 
-
-# 감사 폼
-class ThanksForm(forms.ModelForm):
-    class Meta:
-        model = Thangks
-        fields = [
-            'caption_1', 'caption_2', 'caption_3'
-            ]
-    
-    
-    # 만약 감사를 올린지 24시간 이내이면 오류 발생
-    def clean_created(self):
-        created = self.cleaned_data.get('created')
-
-        # 만약 감사를 올린지 24시간 이내이면 오류 발생
-        if created:
-            qs = User.objects.filter(created = datetime.datetime.now() - datetime.timedelta(hours=23))
-            if qs.exists():
-                raise forms.ValidationError("24시간 내에 감사를 등록했습니다..")
-                
-            return qs

@@ -14,7 +14,7 @@ urlpatterns = [
     path('password_change/', views.password_change, name='password_change'),
     path('edit/', views.profile_edit, name='profile_edit'),
 
-    path('thanks/', views.thanks, name='thanks'),
+    
 
     # TODO: 유저별 저장된 감사 이용 url
     #re_path(r'^(?P<username>[\w.@+-]+)/thanks/$', views.thanks, name='thanks'), 
