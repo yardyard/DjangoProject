@@ -35,7 +35,7 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-4 d-flex align-items-stretch justify-content-center justify-content-lg-start">
+          <div class="col-lg-4 d-flex align-items-stretch justify-content-center justify-content-lg-start">  
               <img src="{{ user.profile.url }}" alt="" width="200" class="img-responsive img-thumbnail center-block rounded-circle">
           </div>
           <div class="col-lg-8 d-flex flex-column align-items-stretch">
@@ -60,14 +60,18 @@
                     오늘 나의 감사
                   </button>
                   <div class="collapse mt-3 mb-3" id="collapseExample">
-                    <ul>
+                    {% if thk %}  
+                      <ul>
                       
-                      <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_1 }}</span></li>
-                      <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_2 }}</span></li>
-                      <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_3 }}</span></li>
-                      
-                      <strong><a href="{% url 'thk_farm' %}">>>>감사 농장으로 이동하기</a></strong>
-                    </ul>                 
+                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_1 }}</span></li>
+                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_2 }}</span></li>
+                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_3 }}</span></li>
+                        
+                        <strong><a href="{% url 'thk_farm' %}">>>>감사 농장으로 이동하기</a></strong>
+                      </ul>
+                    {% else %}
+                      <strong>아직 오늘의 감사를 작성하지 않았습니다.</strong>
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -326,6 +330,7 @@
       </div>
     </section><!-- End My Services Section -->
 
+    
     <!-- ======= Testimonials Section ======= -->
     <section id="testimonials" class="testimonials">
       <div class="container position-relative">
@@ -335,20 +340,47 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'Laura/assets/img/testimonials/testimonials-1.jpg' %}" class="testimonial-img" alt="">
-                <h3>{{ thk.author.username }}</h3>
-                <h4> &amp; Founder</h4>
-                <p>
-                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                  {{ thk.caption_1 }}
-                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                </p>
+                 <!-- 유저가 로그인 되었을 때 보여질 내 정보-->
+                {% if user.is_authenticated %}
+                  {% if thk.caption_1 %}
+                    <img src="{{ user.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
+                    <h3>{{ thk.author.username }}</h3>
+                    <h4> &amp; Founder</h4>
+                    <p>
+                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        {{ thk.caption_1 }}
+                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                    </p>
+                  {% else %}
+                    <img src="{{ user.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
+                    <h3>{{ thk.author.username }}</h3>
+                    <h4> &amp; Founder</h4>
+                    <p>
+                      <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                        <strong>아직 오늘의 감사를 작성하지 않았습니다.</strong>
+                      <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                  {% endif %}
+                <!-- 유저가 로그인 되지않았을 때 보여질 내 정보-->    
+                {% else %}
+                  <div class="swiper-slide">
+                    <div class="testimonial-item">
+                      <img src="{{ thk_user_5.author.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
+                      <h3>{{thk_user_5.author.username}}</h3>
+                      <h4>  &amp;Entrepreneur</h4>
+                      <p>
+                        <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                          {{thk_user_5.caption_1}}
+                        <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                      </p>
+                    </div>
+                  </div><!-- End testimonial item -->
+                {% endif %}
               </div>
             </div><!-- End testimonial item -->
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'Laura/assets/img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="">
+                <img src="{{ thk_user_0.author.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
                 <h3>{{ thk_user_0.author.username }}</h3>
                 <h4> &amp;Designer</h4>
                 <p>
@@ -361,7 +393,7 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'Laura/assets/img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="">
+                <img src="{{ thk_user_1.author.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
                 <h3>{{thk_user_1.author.username}}</h3>
                 <h4> &amp;Store Owner</h4>
                 <p>
@@ -374,7 +406,7 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'Laura/assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="">
+                <img src="{{ thk_user_2.author.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
                 <h3>{{thk_user_2.author.username}}</h3>
                 <h4>  &amp;Freelancer</h4>
                 <p>
@@ -387,7 +419,7 @@
 
             <div class="swiper-slide">
               <div class="testimonial-item">
-                <img src="{% static 'Laura/assets/img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="">
+                <img src="{{ thk_user_3.author.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
                 <h3>{{thk_user_3.author.username}}</h3>
                 <h4>  &amp;Entrepreneur</h4>
                 <p>
@@ -397,7 +429,20 @@
                 </p>
               </div>
             </div><!-- End testimonial item -->
-
+            
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <img src="{{ thk_user_4.author.profile_url }}" alt="" width="100" class="img-responsive img-thumbnail center-block rounded-circle">
+                <h3>{{thk_user_4.author.username}}</h3>
+                <h4>  &amp;Entrepreneur</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                    {{thk_user_4.caption_1}}
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div><!-- End testimonial item -->
+            
           </div>
           <div class="swiper-pagination"></div>
         </div>

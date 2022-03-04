@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import datetime
+from datetime import timedelta
+from django.utils import timezone
 
-
+from .models import Thangks
 from .forms import ThanksForm
 
 
@@ -39,4 +41,22 @@ def thk_new(request):
 
 @login_required
 def thk_farm(request):
-    return render(request, "thangks/thk_farm.html", {})
+    
+    todaytimesince = timezone.now() - timedelta(days=1)
+
+    # 오늘 올렸던 감사 목록
+    today_thk = Thangks.objects.all()\
+        .filter(author=request.user.pk)\
+        .filter(created__gte = todaytimesince)[0]
+    
+    
+    monthtimesince = timezone.now() - timedelta(days=30)
+    month_thk = Thangks.objects.all()\
+        .filter(author=request.user.pk)\
+        .filter(created__gte = monthtimesince)
+
+        
+    return render(request, "thangks/thk_farm.html", {
+        "today_thk" : today_thk,
+        "month_thk" : month_thk,
+    })

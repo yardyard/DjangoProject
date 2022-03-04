@@ -1,1 +1,25 @@
-123
+{% load static %}
+{% load bootstrap4 %}
+
+<hr />
+<h3>오늘 올렸던 감사 목록</h3>
+<div class="collapse mt-3 mb-3" id="collapseExample">
+    <ul>                
+        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_1 }}</span></li>
+        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_2 }}</span></li>
+        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_3 }}</span></li>
+    </ul>
+</div>
+
+<hr />
+<h3>30일 이내에 올렸던 감사 목록</h3>
+<div class="collapse mt-3 mb-3" id="collapseExample">
+<ul>
+    {% for thk in month_thk %}
+        <hr />
+        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_1 }}</span></li>
+        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_2 }}</span></li>
+        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_3 }}</span></li>
+    {% endfor %}
+</ul>
+</div>
