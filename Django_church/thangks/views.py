@@ -10,7 +10,7 @@ from .forms import ThanksForm
 
 
 
-
+todaytimesince = timezone.now() - timedelta(days=1)
 
 # 감사 기능
 """
@@ -29,8 +29,7 @@ def thk_new(request):
             form = post.save()
             messages.success(request, "오늘도 감사를 올린 성도님을 축복합니다." ) 
             return redirect('/')
-    
-    
+   
     else:
         form = ThanksForm()
     
@@ -41,13 +40,11 @@ def thk_new(request):
 
 @login_required
 def thk_farm(request):
-    
-    todaytimesince = timezone.now() - timedelta(days=1)
 
     # 오늘 올렸던 감사 목록
     today_thk = Thangks.objects.all()\
         .filter(author=request.user.pk)\
-        .filter(created__gte = todaytimesince)[0]
+        .filter(created__gte = todaytimesince).last()
     
     
     monthtimesince = timezone.now() - timedelta(days=30)
@@ -59,4 +56,30 @@ def thk_farm(request):
     return render(request, "thangks/thk_farm.html", {
         "today_thk" : today_thk,
         "month_thk" : month_thk,
+    })
+
+
+# 오늘의 감사 수정 기능
+@login_required
+def thk_edit(request):
+    
+    # 오늘 올린 감사를 받아옵니다.
+    today_thk = Thangks.objects.all()\
+        .filter(author=request.user.pk)\
+        .filter(created__gte = todaytimesince).last()
+
+    # 받아온 오늘 올린 감사를 수정합니다.
+    if request.method == 'POST':
+        form = ThanksForm(request.POST, request.FILES, instance=today_thk)
+        if form.is_valid():
+            # form을 수정할 시간을 저장합니다.
+            form.created = timezone.now()
+            form.save()
+            messages.success(request, "오늘의 감사가 수정되었습니다!") # TODO:일정 시간후에 알람 꺼지게 JS로 구현
+            return redirect('thk_farm')
+    else:
+        form = ThanksForm(instance=today_thk)
+    
+    return render(request, 'thangks/thk_edit_form.html', {
+        'form' : form,
     })

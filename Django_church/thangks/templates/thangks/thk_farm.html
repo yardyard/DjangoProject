@@ -1,25 +1,34 @@
-{% load static %}
+{% extends "accounts/layout.html" %}
 {% load bootstrap4 %}
 
-<hr />
-<h3>오늘 올렸던 감사 목록</h3>
-<div class="collapse mt-3 mb-3" id="collapseExample">
-    <ul>                
-        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_1 }}</span></li>
-        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_2 }}</span></li>
-        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_3 }}</span></li>
-    </ul>
-</div>
-
-<hr />
-<h3>30일 이내에 올렸던 감사 목록</h3>
-<div class="collapse mt-3 mb-3" id="collapseExample">
-<ul>
-    {% for thk in month_thk %}
-        <hr />
-        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_1 }}</span></li>
-        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_2 }}</span></li>
-        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_3 }}</span></li>
-    {% endfor %}
-</ul>
-</div>
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 offset-sm-3 mt-6 mb-6">
+                <hr style="width:50%; text-align:left; margin-left:0; border: 1px solid green; background-color:gray;">
+                <h3>오늘 올렸던 감사 목록</h3>
+                <div class="col-sm-6 mt-3 mb-3">
+                    <ul>    
+                        <a href="{% url 'thk_edit' %}" class="twitter"><i class="bi bi-pencil-square"><strong>수정하기</strong></i></a>
+                        <li><i class="bi bi-flower1"></i> <strong>감사</strong> <span>{{ today_thk.caption_1 }}</span></li>
+                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_2 }}</span></li>
+                        <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ today_thk.caption_3 }}</span></li>
+                    </ul>
+                </div>
+                <hr style="width:50%; text-align:left; margin-left:0; border: 1px solid green; background-color:gray;">
+                <h3>30일 이내에 올렸던 감사 목록</h3>
+                <div class="col-sm-6 mt-3 mb-3">
+                    <ul>
+                        {% for thk in month_thk %}
+                            <hr style="width:50%; text-align:left; margin-left:0; color:green; background-color:gray;">
+                            <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_1 }}</span></li>
+                            <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_2 }}</span></li>
+                            <li><i class="bi bi-emoji-heart-eyes"></i> <strong>감사</strong> <span>{{ thk.caption_3 }}</span></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <hr style="width:50%; text-align:left; margin-left:0; border: 1px solid green; background-color:gray;">
+            </div>
+        </div>
+    </div>
+{% endblock %}

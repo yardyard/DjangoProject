@@ -41,7 +41,14 @@ def root(request):
 
     # 총 유저 수
     last_user_pk = User.objects.count() -1
-      
+    
+    # 오늘 감사를 올릴 성도님 수    
+    thk_today_cnt = Thangks.objects.all()\
+      .filter(created__gte = timesince)    
+   
+    thk_today_user = thk_today_cnt.count()
+    
+
     # 랜덤으로 중복되지 않게 pk 리스트에 추가
     for _ in range(last_user_pk):
       a = random.randint(0,last_user_pk)
@@ -68,7 +75,12 @@ def root(request):
       .filter(author=rand_user_list[5]).last()
     
     return render(request, 'root.html', {
+    'last_user_pk' : last_user_pk,
+    'thk_today_user' : thk_today_user,
+
     'thk' : thk,
+
+
     'thk_user_0' : thk_user_0,
     'thk_user_1' : thk_user_1,
     'thk_user_2' : thk_user_2,
