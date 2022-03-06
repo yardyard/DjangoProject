@@ -13,10 +13,12 @@ from .forms import ThanksForm
 todaytimesince = timezone.now() - timedelta(days=1)
 
 # 감사 기능
+
 """
+Problem Solution
 수정과 같이 instance=user를 미리 지정해놓아서 저장이 제대로 되지 않았었던 것임
 """
-
+# 감사 추가
 @login_required
 def thk_new(request):
 
@@ -37,7 +39,7 @@ def thk_new(request):
         'form' : form,
     })
 
-
+# 감사 농장
 @login_required
 def thk_farm(request):
 
